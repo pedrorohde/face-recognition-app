@@ -11,8 +11,9 @@ class VideoTransformer(VideoTransformerBase):
         self.face_locations = []
         self.face_embeddings = []
         self.face_names = []
-        self.names = ['pedro', 'livia', 'bia']
-        self.embeddings = [face_recognition.face_encodings(face_recognition.load_image_file(f"faces/{name}.jpg"), model='small')[0] for name in self.names]
+        self.names = np.load('names.npy')
+        self.embeddings = np.load('embeddings.npy')
+        print(self.embeddings.shape)
 
     def transform(self, frame):
 
