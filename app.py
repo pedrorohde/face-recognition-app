@@ -4,8 +4,8 @@ import cv2
 import numpy as np
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, WebRtcMode, ClientSettings
 
-resize_scale = 10
-time_scale = 4
+resize_scale = 4
+time_scale = 10
 
 class VideoTransformer(VideoTransformerBase):
     def __init__(self):
@@ -27,6 +27,7 @@ class VideoTransformer(VideoTransformerBase):
         rgb_small_frame = small_frame[:, :, ::-1]
 
         if self.process_this_frame == 0:
+            print('in loop')
             self.face_locations = face_recognition.face_locations(rgb_small_frame)
             self.face_embeddings = face_recognition.face_encodings(rgb_small_frame, self.face_locations, model='small')
             
@@ -40,7 +41,9 @@ class VideoTransformer(VideoTransformerBase):
                     name = self.names[best_match_index]
 
                 self.face_names.append(name)
+                print(name)
 
+        print(self.process_this_frame)
         self.process_this_frame += 1
         self.process_this_frame %= time_scale
 
