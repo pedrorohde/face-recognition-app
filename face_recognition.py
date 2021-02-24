@@ -63,6 +63,7 @@ def face_distance(face_encodings, face_to_compare):
     :param face_to_compare: A face encoding to compare against
     :return: A numpy ndarray with the distance for each face in the same order as the 'faces' array
     """
+
     if len(face_encodings) == 0:
         return np.empty((0))
 
