@@ -4,12 +4,13 @@ import cv2
 import numpy as np
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, WebRtcMode, ClientSettings
 
-
+resize_scale = 10
+time_scale = 4
 
 class VideoTransformer(VideoTransformerBase):
     def __init__(self):
         super().__init__()
-        self.process_this_frame = True
+        self.process_this_frame = 0
         self.face_locations = []
         self.face_embeddings = []
         self.face_names = []
@@ -21,11 +22,11 @@ class VideoTransformer(VideoTransformerBase):
 
         img = frame.to_ndarray(format="bgr24")
 
-        small_frame = cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
+        small_frame = cv2.resize(img, (0, 0), fx=1.0/resize_scale, fy=1.0/resize_scale)
 
         rgb_small_frame = small_frame[:, :, ::-1]
 
-        if self.process_this_frame:
+        if self.process_this_frame == 0:
             self.face_locations = face_recognition.face_locations(rgb_small_frame)
             self.face_embeddings = face_recognition.face_encodings(rgb_small_frame, self.face_locations, model='small')
             
@@ -40,15 +41,16 @@ class VideoTransformer(VideoTransformerBase):
 
                 self.face_names.append(name)
 
-        self.process_this_frame = not self.process_this_frame
+        self.process_this_frame += 1
+        self.process_this_frame %= time_scale
 
         # Display the results
         for (top, right, bottom, left), name in zip(self.face_locations, self.face_names):
             # Scale back up face locations since the frame we detected in was scaled to 1/4 size
-            top *= 4
-            right *= 4
-            bottom *= 4
-            left *= 4
+            top *= resize_scale
+            right *= resize_scale
+            bottom *= resize_scale
+            left *= resize_scale
 
             # Draw a box around the face
             cv2.rectangle(img, (left, top), (right, bottom), (0, 0, 255), 2)
