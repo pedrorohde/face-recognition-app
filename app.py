@@ -1,7 +1,9 @@
+import streamlit as st
+import face_recognition
 import cv2
 import numpy as np
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, WebRtcMode, ClientSettings
-import face_recognition
+
 
 
 class VideoTransformer(VideoTransformerBase):

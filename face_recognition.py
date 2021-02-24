@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import PIL.Image
 import dlib
+import PIL.Image
 import numpy as np
 from PIL import ImageFile
 from pkg_resources import resource_filename
