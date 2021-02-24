@@ -1,5 +1,4 @@
 numpy
-opencv
 dlib
 face_recognition
 
