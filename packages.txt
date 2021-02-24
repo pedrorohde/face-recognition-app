@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 cmake
 libgtk-3-dev
 libboost-all-dev
 libopenblas-dev
 liblapack-dev
+=======
+
+>>>>>>> c813fb26834b0105005bbc13933f1aed94f5d4d7
