@@ -1,4 +1,2 @@
 numpy
 dlib
-face_recognition
-

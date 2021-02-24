@@ -6,3 +6,4 @@ freeglut3-dev
 ffmpeg
 libsm6
 libxext6
+libstdc
